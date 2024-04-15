@@ -30,10 +30,12 @@ for file in csv_files:
         set_num = row['Number']
         price_usd = row['RRP (USD)']
         
-        # construct the SQL query to update 'price_USD' column in 'sets' table
+        # Check if the price_usd is not NaN (missing value)
+    if not pd.isna(price_usd):
+            # Construct the SQL query to update 'price_USD' column in 'sets' table
         sql_query = "UPDATE sets SET price_USD = %s WHERE set_num = %s"
-        
-        # execute the SQL query with price data and set_num as parameters
+            
+            # Execute the SQL query with price data and set_num as parameters
         cursor.execute(sql_query, (price_usd, set_num))
         
 # Commit changes and close connection
